@@ -1,0 +1,904 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NetworkDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Closet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Network">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NetworkAddress" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="Netmask" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="Gateway" Type="binary" MaxLength="32" Nullable="false" />
+          <Property Name="Broadcast" Type="binary" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PatchPanel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="ClosetId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PatchPanel_PortGroup">
+          <Key>
+            <PropertyRef Name="PatchPanelId" />
+            <PropertyRef Name="PGId" />
+          </Key>
+          <Property Name="PatchPanelId" Type="int" Nullable="false" />
+          <Property Name="PGId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Port">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Notes" Type="text" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="ConnectedPortId" Type="int" />
+        </EntityType>
+        <EntityType Name="PortGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Notes" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PortGroup_Port">
+          <Key>
+            <PropertyRef Name="PortId" />
+            <PropertyRef Name="PGId" />
+          </Key>
+          <Property Name="PortId" Type="int" Nullable="false" />
+          <Property Name="PGId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PortType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Notes" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room_Area">
+          <Key>
+            <PropertyRef Name="RoomId" />
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="RoomId" Type="int" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Room_PortGroup">
+          <Key>
+            <PropertyRef Name="RoomId" />
+            <PropertyRef Name="PGId" />
+          </Key>
+          <Property Name="RoomId" Type="int" Nullable="false" />
+          <Property Name="PGId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Switch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="ModelInfo" Type="text" Nullable="false" />
+          <Property Name="ClosetId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Switch_Network">
+          <Key>
+            <PropertyRef Name="SwitchId" />
+            <PropertyRef Name="NetworkId" />
+          </Key>
+          <Property Name="SwitchId" Type="int" Nullable="false" />
+          <Property Name="NetworkId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Switch_PortGroup">
+          <Key>
+            <PropertyRef Name="SwitchId" />
+            <PropertyRef Name="PGId" />
+          </Key>
+          <Property Name="SwitchId" Type="int" Nullable="false" />
+          <Property Name="PGId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaggedPorts">
+          <Key>
+            <PropertyRef Name="PortId" />
+            <PropertyRef Name="VlanId" />
+          </Key>
+          <Property Name="PortId" Type="int" Nullable="false" />
+          <Property Name="VlanId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VlanTag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Tagged" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Closet_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="Closet" Type="Self.Closet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Closet">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConnectedPort">
+          <End Role="Port" Type="Self.Port" Multiplicity="0..1" />
+          <End Role="Port1" Type="Self.Port" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Port">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Port1">
+              <PropertyRef Name="ConnectedPortId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatchPanel_Closet">
+          <End Role="Closet" Type="Self.Closet" Multiplicity="1" />
+          <End Role="PatchPanel" Type="Self.PatchPanel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Closet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatchPanel">
+              <PropertyRef Name="ClosetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PGP_Port">
+          <End Role="Port" Type="Self.Port" Multiplicity="1" />
+          <End Role="PortGroup_Port" Type="Self.PortGroup_Port" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Port">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PortGroup_Port">
+              <PropertyRef Name="PortId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PGP_PortGroup">
+          <End Role="PortGroup" Type="Self.PortGroup" Multiplicity="1" />
+          <End Role="PortGroup_Port" Type="Self.PortGroup_Port" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PortGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PortGroup_Port">
+              <PropertyRef Name="PGId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Port_Type">
+          <End Role="PortType" Type="Self.PortType" Multiplicity="1" />
+          <End Role="Port" Type="Self.Port" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PortType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Port">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PPPG_PG">
+          <End Role="PortGroup" Type="Self.PortGroup" Multiplicity="1" />
+          <End Role="PatchPanel_PortGroup" Type="Self.PatchPanel_PortGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PortGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatchPanel_PortGroup">
+              <PropertyRef Name="PGId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PPPG_PP">
+          <End Role="PatchPanel" Type="Self.PatchPanel" Multiplicity="1" />
+          <End Role="PatchPanel_PortGroup" Type="Self.PatchPanel_PortGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatchPanel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PatchPanel_PortGroup">
+              <PropertyRef Name="PatchPanelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RA_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="Room_Area" Type="Self.Room_Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Room_Area">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RA_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="Room_Area" Type="Self.Room_Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Room_Area">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_PortGroup_ToPortGroup">
+          <End Role="PortGroup" Type="Self.PortGroup" Multiplicity="1" />
+          <End Role="Room_PortGroup" Type="Self.Room_PortGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PortGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Room_PortGroup">
+              <PropertyRef Name="PGId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_PortGroup_ToRoom">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="Room_PortGroup" Type="Self.Room_PortGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Room_PortGroup">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SN_Network">
+          <End Role="Network" Type="Self.Network" Multiplicity="1" />
+          <End Role="Switch_Network" Type="Self.Switch_Network" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Network">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Switch_Network">
+              <PropertyRef Name="NetworkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SN_Switch">
+          <End Role="Switch" Type="Self.Switch" Multiplicity="1" />
+          <End Role="Switch_Network" Type="Self.Switch_Network" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Switch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Switch_Network">
+              <PropertyRef Name="SwitchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPG_PG">
+          <End Role="PortGroup" Type="Self.PortGroup" Multiplicity="1" />
+          <End Role="Switch_PortGroup" Type="Self.Switch_PortGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PortGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Switch_PortGroup">
+              <PropertyRef Name="PGId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPG_Switch">
+          <End Role="Switch" Type="Self.Switch" Multiplicity="1" />
+          <End Role="Switch_PortGroup" Type="Self.Switch_PortGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Switch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Switch_PortGroup">
+              <PropertyRef Name="SwitchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Switch_Closet">
+          <End Role="Closet" Type="Self.Closet" Multiplicity="1" />
+          <End Role="Switch" Type="Self.Switch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Closet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Switch">
+              <PropertyRef Name="ClosetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tagged_Port">
+          <End Role="Port" Type="Self.Port" Multiplicity="1" />
+          <End Role="TaggedPorts" Type="Self.TaggedPorts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Port">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaggedPorts">
+              <PropertyRef Name="PortId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tagged_Vlan">
+          <End Role="VlanTag" Type="Self.VlanTag" Multiplicity="1" />
+          <End Role="TaggedPorts" Type="Self.TaggedPorts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VlanTag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaggedPorts">
+              <PropertyRef Name="VlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NetworkDataModelStoreContainer">
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Closet" EntityType="Self.Closet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Network" EntityType="Self.Network" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatchPanel" EntityType="Self.PatchPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatchPanel_PortGroup" EntityType="Self.PatchPanel_PortGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Port" EntityType="Self.Port" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PortGroup" EntityType="Self.PortGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PortGroup_Port" EntityType="Self.PortGroup_Port" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PortType" EntityType="Self.PortType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room_Area" EntityType="Self.Room_Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room_PortGroup" EntityType="Self.Room_PortGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Switch" EntityType="Self.Switch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Switch_Network" EntityType="Self.Switch_Network" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Switch_PortGroup" EntityType="Self.Switch_PortGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaggedPorts" EntityType="Self.TaggedPorts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VlanTag" EntityType="Self.VlanTag" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Closet_Area" Association="Self.FK_Closet_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Closet" EntitySet="Closet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectedPort" Association="Self.FK_ConnectedPort">
+            <End Role="Port" EntitySet="Port" />
+            <End Role="Port1" EntitySet="Port" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatchPanel_Closet" Association="Self.FK_PatchPanel_Closet">
+            <End Role="Closet" EntitySet="Closet" />
+            <End Role="PatchPanel" EntitySet="PatchPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PGP_Port" Association="Self.FK_PGP_Port">
+            <End Role="Port" EntitySet="Port" />
+            <End Role="PortGroup_Port" EntitySet="PortGroup_Port" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PGP_PortGroup" Association="Self.FK_PGP_PortGroup">
+            <End Role="PortGroup" EntitySet="PortGroup" />
+            <End Role="PortGroup_Port" EntitySet="PortGroup_Port" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Port_Type" Association="Self.FK_Port_Type">
+            <End Role="PortType" EntitySet="PortType" />
+            <End Role="Port" EntitySet="Port" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PPPG_PG" Association="Self.FK_PPPG_PG">
+            <End Role="PortGroup" EntitySet="PortGroup" />
+            <End Role="PatchPanel_PortGroup" EntitySet="PatchPanel_PortGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PPPG_PP" Association="Self.FK_PPPG_PP">
+            <End Role="PatchPanel" EntitySet="PatchPanel" />
+            <End Role="PatchPanel_PortGroup" EntitySet="PatchPanel_PortGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RA_Area" Association="Self.FK_RA_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Room_Area" EntitySet="Room_Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RA_Room" Association="Self.FK_RA_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Room_Area" EntitySet="Room_Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_PortGroup_ToPortGroup" Association="Self.FK_Room_PortGroup_ToPortGroup">
+            <End Role="PortGroup" EntitySet="PortGroup" />
+            <End Role="Room_PortGroup" EntitySet="Room_PortGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_PortGroup_ToRoom" Association="Self.FK_Room_PortGroup_ToRoom">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="Room_PortGroup" EntitySet="Room_PortGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SN_Network" Association="Self.FK_SN_Network">
+            <End Role="Network" EntitySet="Network" />
+            <End Role="Switch_Network" EntitySet="Switch_Network" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SN_Switch" Association="Self.FK_SN_Switch">
+            <End Role="Switch" EntitySet="Switch" />
+            <End Role="Switch_Network" EntitySet="Switch_Network" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPG_PG" Association="Self.FK_SPG_PG">
+            <End Role="PortGroup" EntitySet="PortGroup" />
+            <End Role="Switch_PortGroup" EntitySet="Switch_PortGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPG_Switch" Association="Self.FK_SPG_Switch">
+            <End Role="Switch" EntitySet="Switch" />
+            <End Role="Switch_PortGroup" EntitySet="Switch_PortGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Switch_Closet" Association="Self.FK_Switch_Closet">
+            <End Role="Closet" EntitySet="Closet" />
+            <End Role="Switch" EntitySet="Switch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tagged_Port" Association="Self.FK_Tagged_Port">
+            <End Role="Port" EntitySet="Port" />
+            <End Role="TaggedPorts" EntitySet="TaggedPorts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tagged_Vlan" Association="Self.FK_Tagged_Vlan">
+            <End Role="VlanTag" EntitySet="VlanTag" />
+            <End Role="TaggedPorts" EntitySet="TaggedPorts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NetworkDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Closets" Relationship="Self.FK_Closet_Area" FromRole="Area" ToRole="Closet" />
+          <NavigationProperty Name="Rooms" Relationship="NetworkDataModel.Room_Area" FromRole="Area" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Closet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_Closet_Area" FromRole="Closet" ToRole="Area" />
+          <NavigationProperty Name="PatchPanels" Relationship="Self.FK_PatchPanel_Closet" FromRole="Closet" ToRole="PatchPanel" />
+          <NavigationProperty Name="Switches" Relationship="Self.FK_Switch_Closet" FromRole="Closet" ToRole="Switch" />
+        </EntityType>
+        <EntityType Name="Network">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NetworkAddress" Type="Binary" MaxLength="32" FixedLength="true" Nullable="false" />
+          <Property Name="Netmask" Type="Binary" MaxLength="32" FixedLength="true" Nullable="false" />
+          <Property Name="Gateway" Type="Binary" MaxLength="32" FixedLength="true" Nullable="false" />
+          <Property Name="Broadcast" Type="Binary" MaxLength="32" FixedLength="true" Nullable="false" />
+          <NavigationProperty Name="Switches" Relationship="Self.Switch_Network" FromRole="Network" ToRole="Switch" />
+        </EntityType>
+        <EntityType Name="PatchPanel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Closet" Relationship="Self.FK_PatchPanel_Closet" FromRole="PatchPanel" ToRole="Closet" />
+          <NavigationProperty Name="PortGroups" Relationship="NetworkDataModel.PatchPanel_PortGroup" FromRole="PatchPanel" ToRole="PortGroup" />
+        </EntityType>
+        <EntityType Name="Port">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PortType" Relationship="Self.FK_Port_Type" FromRole="Port" ToRole="PortType" />
+          <NavigationProperty Name="PortGroups" Relationship="Self.PortGroup_Port" FromRole="Port" ToRole="PortGroup" />
+          <NavigationProperty Name="VlanTags" Relationship="Self.TaggedPorts" FromRole="Port" ToRole="VlanTag" />
+          <NavigationProperty Name="Port1" Relationship="NetworkDataModel.FK_ConnectedPort" FromRole="Port" ToRole="Port1" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Public" />
+          <NavigationProperty Name="ConnectedPort" Relationship="NetworkDataModel.FK_ConnectedPort" FromRole="Port1" ToRole="Port" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Protected" />
+        </EntityType>
+        <EntityType Name="PortGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ports" Relationship="Self.PortGroup_Port" FromRole="PortGroup" ToRole="Port" />
+          <NavigationProperty Name="Rooms" Relationship="Self.Room_PortGroup" FromRole="PortGroup" ToRole="Room" />
+          <NavigationProperty Name="PatchPanels" Relationship="NetworkDataModel.PatchPanel_PortGroup" FromRole="PortGroup" ToRole="PatchPanel" />
+          <NavigationProperty Name="Switches" Relationship="NetworkDataModel.Switch_PortGroup" FromRole="PortGroup" ToRole="Switch" />
+        </EntityType>
+        <EntityType Name="PortType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ports" Relationship="Self.FK_Port_Type" FromRole="PortType" ToRole="Port" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PortGroups" Relationship="Self.Room_PortGroup" FromRole="Room" ToRole="PortGroup" />
+          <NavigationProperty Name="Areas" Relationship="NetworkDataModel.Room_Area" FromRole="Room" ToRole="Area" />
+        </EntityType>
+        <EntityType Name="Switch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModelInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Closet" Relationship="Self.FK_Switch_Closet" FromRole="Switch" ToRole="Closet" />
+          <NavigationProperty Name="Networks" Relationship="Self.Switch_Network" FromRole="Switch" ToRole="Network" />
+          <NavigationProperty Name="PortGroups" Relationship="NetworkDataModel.Switch_PortGroup" FromRole="Switch" ToRole="PortGroup" />
+        </EntityType>
+        <EntityType Name="VlanTag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Tagged" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Ports" Relationship="Self.TaggedPorts" FromRole="VlanTag" ToRole="Port" />
+        </EntityType>
+        <Association Name="FK_Closet_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="Closet" Type="Self.Closet" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PatchPanel_Closet">
+          <End Role="Closet" Type="Self.Closet" Multiplicity="1" />
+          <End Role="PatchPanel" Type="Self.PatchPanel" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Switch_Closet">
+          <End Role="Closet" Type="Self.Closet" Multiplicity="1" />
+          <End Role="Switch" Type="Self.Switch" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Port_Type">
+          <End Role="PortType" Type="Self.PortType" Multiplicity="1" />
+          <End Role="Port" Type="Self.Port" Multiplicity="*" />
+        </Association>
+        <Association Name="PortGroup_Port">
+          <End Role="Port" Type="Self.Port" Multiplicity="*" />
+          <End Role="PortGroup" Type="Self.PortGroup" Multiplicity="*" />
+        </Association>
+        <Association Name="Room_PortGroup">
+          <End Role="PortGroup" Type="Self.PortGroup" Multiplicity="*" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+        </Association>
+        <Association Name="Switch_Network">
+          <End Role="Network" Type="Self.Network" Multiplicity="*" />
+          <End Role="Switch" Type="Self.Switch" Multiplicity="*" />
+        </Association>
+        <Association Name="TaggedPorts">
+          <End Role="Port" Type="Self.Port" Multiplicity="*" />
+          <End Role="VlanTag" Type="Self.VlanTag" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="NetworkDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Areas" EntityType="Self.Area" />
+          <EntitySet Name="Closets" EntityType="Self.Closet" />
+          <EntitySet Name="Networks" EntityType="Self.Network" />
+          <EntitySet Name="PatchPanels" EntityType="Self.PatchPanel" />
+          <EntitySet Name="Ports" EntityType="Self.Port" />
+          <EntitySet Name="PortGroups" EntityType="Self.PortGroup" />
+          <EntitySet Name="PortTypes" EntityType="Self.PortType" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Switches" EntityType="Self.Switch" />
+          <EntitySet Name="VlanTags" EntityType="Self.VlanTag" />
+          <AssociationSet Name="FK_Closet_Area" Association="Self.FK_Closet_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="Closet" EntitySet="Closets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatchPanel_Closet" Association="Self.FK_PatchPanel_Closet">
+            <End Role="Closet" EntitySet="Closets" />
+            <End Role="PatchPanel" EntitySet="PatchPanels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Switch_Closet" Association="Self.FK_Switch_Closet">
+            <End Role="Closet" EntitySet="Closets" />
+            <End Role="Switch" EntitySet="Switches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Port_Type" Association="Self.FK_Port_Type">
+            <End Role="PortType" EntitySet="PortTypes" />
+            <End Role="Port" EntitySet="Ports" />
+          </AssociationSet>
+          <AssociationSet Name="PortGroup_Port" Association="Self.PortGroup_Port">
+            <End Role="Port" EntitySet="Ports" />
+            <End Role="PortGroup" EntitySet="PortGroups" />
+          </AssociationSet>
+          <AssociationSet Name="Room_PortGroup" Association="Self.Room_PortGroup">
+            <End Role="PortGroup" EntitySet="PortGroups" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="Switch_Network" Association="Self.Switch_Network">
+            <End Role="Network" EntitySet="Networks" />
+            <End Role="Switch" EntitySet="Switches" />
+          </AssociationSet>
+          <AssociationSet Name="TaggedPorts" Association="Self.TaggedPorts">
+            <End Role="Port" EntitySet="Ports" />
+            <End Role="VlanTag" EntitySet="VlanTags" />
+          </AssociationSet>
+          <AssociationSet Name="PatchPanel_PortGroup" Association="NetworkDataModel.PatchPanel_PortGroup">
+            <End Role="PortGroup" EntitySet="PortGroups" />
+            <End Role="PatchPanel" EntitySet="PatchPanels" />
+          </AssociationSet>
+          <AssociationSet Name="Room_Area" Association="NetworkDataModel.Room_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="Switch_PortGroup" Association="NetworkDataModel.Switch_PortGroup">
+            <End Role="PortGroup" EntitySet="PortGroups" />
+            <End Role="Switch" EntitySet="Switches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConnectedPort" Association="NetworkDataModel.FK_ConnectedPort">
+            <End Role="Port" EntitySet="Ports" />
+            <End Role="Port1" EntitySet="Ports" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="PatchPanel_PortGroup">
+          <End Type="NetworkDataModel.PortGroup" Role="PortGroup" Multiplicity="*" />
+          <End Type="NetworkDataModel.PatchPanel" Role="PatchPanel" Multiplicity="*" />
+        </Association>
+        <Association Name="Room_Area">
+          <End Type="NetworkDataModel.Area" Role="Area" Multiplicity="*" />
+          <End Type="NetworkDataModel.Room" Role="Room" Multiplicity="*" />
+        </Association>
+        <Association Name="Switch_PortGroup">
+          <End Type="NetworkDataModel.PortGroup" Role="PortGroup" Multiplicity="*" />
+          <End Type="NetworkDataModel.Switch" Role="Switch" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_ConnectedPort">
+          <End Type="NetworkDataModel.Port" Role="Port" Multiplicity="0..1" />
+          <End Type="NetworkDataModel.Port" Role="Port1" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NetworkDataModelStoreContainer" CdmEntityContainer="NetworkDataEntities">
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="NetworkDataModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Closets">
+            <EntityTypeMapping TypeName="NetworkDataModel.Closet">
+              <MappingFragment StoreEntitySet="Closet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Networks">
+            <EntityTypeMapping TypeName="NetworkDataModel.Network">
+              <MappingFragment StoreEntitySet="Network">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NetworkAddress" ColumnName="NetworkAddress" />
+                <ScalarProperty Name="Netmask" ColumnName="Netmask" />
+                <ScalarProperty Name="Gateway" ColumnName="Gateway" />
+                <ScalarProperty Name="Broadcast" ColumnName="Broadcast" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatchPanels">
+            <EntityTypeMapping TypeName="NetworkDataModel.PatchPanel">
+              <MappingFragment StoreEntitySet="PatchPanel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ports">
+            <EntityTypeMapping TypeName="NetworkDataModel.Port">
+              <MappingFragment StoreEntitySet="Port">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PortGroups">
+            <EntityTypeMapping TypeName="NetworkDataModel.PortGroup">
+              <MappingFragment StoreEntitySet="PortGroup">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PortTypes">
+            <EntityTypeMapping TypeName="NetworkDataModel.PortType">
+              <MappingFragment StoreEntitySet="PortType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="NetworkDataModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Switches">
+            <EntityTypeMapping TypeName="NetworkDataModel.Switch">
+              <MappingFragment StoreEntitySet="Switch">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ModelInfo" ColumnName="ModelInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VlanTags">
+            <EntityTypeMapping TypeName="NetworkDataModel.VlanTag">
+              <MappingFragment StoreEntitySet="VlanTag">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tagged" ColumnName="Tagged" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Closet_Area" TypeName="NetworkDataModel.FK_Closet_Area" StoreEntitySet="Closet">
+            <EndProperty Name="Area">
+              <ScalarProperty Name="Id" ColumnName="AreaId" />
+            </EndProperty>
+            <EndProperty Name="Closet">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PatchPanel_Closet" TypeName="NetworkDataModel.FK_PatchPanel_Closet" StoreEntitySet="PatchPanel">
+            <EndProperty Name="Closet">
+              <ScalarProperty Name="Id" ColumnName="ClosetId" />
+            </EndProperty>
+            <EndProperty Name="PatchPanel">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Switch_Closet" TypeName="NetworkDataModel.FK_Switch_Closet" StoreEntitySet="Switch">
+            <EndProperty Name="Closet">
+              <ScalarProperty Name="Id" ColumnName="ClosetId" />
+            </EndProperty>
+            <EndProperty Name="Switch">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Port_Type" TypeName="NetworkDataModel.FK_Port_Type" StoreEntitySet="Port">
+            <EndProperty Name="PortType">
+              <ScalarProperty Name="Id" ColumnName="TypeId" />
+            </EndProperty>
+            <EndProperty Name="Port">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PortGroup_Port" TypeName="NetworkDataModel.PortGroup_Port" StoreEntitySet="PortGroup_Port">
+            <EndProperty Name="Port">
+              <ScalarProperty Name="Id" ColumnName="PortId" />
+            </EndProperty>
+            <EndProperty Name="PortGroup">
+              <ScalarProperty Name="Id" ColumnName="PGId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Room_PortGroup" TypeName="NetworkDataModel.Room_PortGroup" StoreEntitySet="Room_PortGroup">
+            <EndProperty Name="PortGroup">
+              <ScalarProperty Name="Id" ColumnName="PGId" />
+            </EndProperty>
+            <EndProperty Name="Room">
+              <ScalarProperty Name="Id" ColumnName="RoomId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Switch_Network" TypeName="NetworkDataModel.Switch_Network" StoreEntitySet="Switch_Network">
+            <EndProperty Name="Network">
+              <ScalarProperty Name="Id" ColumnName="NetworkId" />
+            </EndProperty>
+            <EndProperty Name="Switch">
+              <ScalarProperty Name="Id" ColumnName="SwitchId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TaggedPorts" TypeName="NetworkDataModel.TaggedPorts" StoreEntitySet="TaggedPorts">
+            <EndProperty Name="Port">
+              <ScalarProperty Name="Id" ColumnName="PortId" />
+            </EndProperty>
+            <EndProperty Name="VlanTag">
+              <ScalarProperty Name="Id" ColumnName="VlanId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PatchPanel_PortGroup" TypeName="NetworkDataModel.PatchPanel_PortGroup" StoreEntitySet="PatchPanel_PortGroup">
+            <EndProperty Name="PatchPanel">
+              <ScalarProperty Name="Id" ColumnName="PatchPanelId" />
+            </EndProperty>
+            <EndProperty Name="PortGroup">
+              <ScalarProperty Name="Id" ColumnName="PGId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Room_Area" TypeName="NetworkDataModel.Room_Area" StoreEntitySet="Room_Area">
+            <EndProperty Name="Room">
+              <ScalarProperty Name="Id" ColumnName="RoomId" />
+            </EndProperty>
+            <EndProperty Name="Area">
+              <ScalarProperty Name="Id" ColumnName="AreaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Switch_PortGroup" TypeName="NetworkDataModel.Switch_PortGroup" StoreEntitySet="Switch_PortGroup">
+            <EndProperty Name="Switch">
+              <ScalarProperty Name="Id" ColumnName="SwitchId" />
+            </EndProperty>
+            <EndProperty Name="PortGroup">
+              <ScalarProperty Name="Id" ColumnName="PGId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_ConnectedPort" TypeName="NetworkDataModel.FK_ConnectedPort" StoreEntitySet="Port">
+            <EndProperty Name="Port1">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <EndProperty Name="Port">
+              <ScalarProperty Name="Id" ColumnName="ConnectedPortId" />
+            </EndProperty>
+            <Condition ColumnName="ConnectedPortId" IsNull="false" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

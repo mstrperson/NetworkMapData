@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMapData", "NetworkMapData\NetworkMapData.csproj", "{57BDE711-2FF3-43EA-AA3B-BF0B39FDB308}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkDocumentationWebInterface", "NetworkDocumentationWebInterface\NetworkDocumentationWebInterface.csproj", "{DA514CEF-A379-4E05-8DBA-50A3B2D0F593}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{57BDE711-2FF3-43EA-AA3B-BF0B39FDB308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57BDE711-2FF3-43EA-AA3B-BF0B39FDB308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57BDE711-2FF3-43EA-AA3B-BF0B39FDB308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA514CEF-A379-4E05-8DBA-50A3B2D0F593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA514CEF-A379-4E05-8DBA-50A3B2D0F593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA514CEF-A379-4E05-8DBA-50A3B2D0F593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA514CEF-A379-4E05-8DBA-50A3B2D0F593}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

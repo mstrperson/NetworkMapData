@@ -96,6 +96,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NetworkDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Area.cs" />
+    <Compile Include="Partials\Closet.cs" />
     <Compile Include="Partials\PatchCable.cs" />
     <Compile Include="Partials\PatchPanel.cs" />
     <Compile Include="Partials\Port.cs" />

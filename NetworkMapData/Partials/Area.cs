@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetworkMapData
 {
-    public partial class PatchCable
+    public partial class Area
     {
         /// <summary>
         /// Get the next available ID from the database for this table.
@@ -21,20 +21,9 @@ namespace NetworkMapData
             {
                 using (NetworkDataEntities db = new NetworkDataEntities())
                 {
-                    return db.PatchCables.Count() > 0 ? db.PatchCables.OrderByDescending(p => p.Id).First().Id + 1 : 0;
+                    return db.Areas.Count() > 0 ? db.Areas.OrderByDescending(p => p.Id).First().Id + 1 : 0;
                 }
             }
-        }
-
-        /// <summary>
-        /// Connect two ports with this patch cable.
-        /// </summary>
-        /// <param name="a">PortA on this cable</param>
-        /// <param name="b">PortB on this cable</param>
-        public void Connect(ref Port a, ref Port b)
-        {
-            this.PortA = a;
-            this.PortB = b;
         }
     }
 }

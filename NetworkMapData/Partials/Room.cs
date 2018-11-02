@@ -9,6 +9,24 @@ namespace NetworkMapData
     public partial class Room
     {
         /// <summary>
+        /// Get the next available ID from the database for this table.
+        /// 
+        /// ***Warning***
+        /// Do not use this in a loop as it pulls from a new database context and will not 
+        /// update until you save changes to the database in the context inwhich you are working.
+        /// </summary>
+        public static int NextAvailableId
+        {
+            get
+            {
+                using (NetworkDataEntities db = new NetworkDataEntities())
+                {
+                    return db.Rooms.Count() > 0 ? db.Rooms.OrderByDescending(p => p.Id).First().Id + 1 : 0;
+                }
+            }
+        }
+
+        /// <summary>
         /// Readonly Accessor for ports in this room.
         /// This room's ports cannot be modified through this enumeration.
         /// To add a port to a room, it must be added to a PortGroup in the room.

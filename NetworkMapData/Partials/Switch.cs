@@ -9,6 +9,24 @@ namespace NetworkMapData
     public partial class Switch
     {
         /// <summary>
+        /// Get the next available ID from the database for this table.
+        /// 
+        /// ***Warning***
+        /// Do not use this in a loop as it pulls from a new database context and will not 
+        /// update until you save changes to the database in the context inwhich you are working.
+        /// </summary>
+        public static int NextAvailableId
+        {
+            get
+            {
+                using (NetworkDataEntities db = new NetworkDataEntities())
+                {
+                    return db.Switches.Count() > 0 ? db.Switches.OrderByDescending(p => p.Id).First().Id + 1 : 0;
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a "module" of ports on this switch.  Be sure to save the database context after use.
         /// </summary>
         /// <param name="portCount">Number of ports on this module</param>

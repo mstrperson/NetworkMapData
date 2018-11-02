@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace NetworkMapData
 {
-    public partial class Switch
+    public partial class PatchPanel
     {
         /// <summary>
-        /// Creates a "module" of ports on this switch.  Be sure to save the database context after use.
+        /// Creates a "module" of ports on this panel.  Be sure to save the database context after use.
         /// </summary>
         /// <param name="portCount">Number of ports on this module</param>
         /// <param name="moduleName">Name of this module</param>
@@ -24,7 +24,7 @@ namespace NetworkMapData
                 Notes = ""
             };
 
-            for(int i = 0; i < portCount; i++)
+            for (int i = 0; i < portCount; i++)
             {
                 Port port = new Port()
                 {

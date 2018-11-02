@@ -12,19 +12,13 @@ namespace NetworkMapData
     using System;
     using System.Collections.Generic;
     
-    public partial class PortType
+    public partial class PatchCable
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PortType()
-        {
-            this.Ports = new HashSet<Port>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Nullable<int> PortAId { get; set; }
+        public Nullable<int> PortBId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Port> Ports { get; set; }
+        public virtual Port PortA { get; set; }
+        public virtual Port PortB { get; set; }
     }
 }

@@ -17,8 +17,8 @@ namespace NetworkMapData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Room()
         {
-            this.PortGroups = new HashSet<PortGroup>();
             this.Areas = new HashSet<Area>();
+            this.PortGroups = new HashSet<PortGroup>();
         }
     
         public int Id { get; set; }
@@ -26,8 +26,8 @@ namespace NetworkMapData
         public string Notes { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PortGroup> PortGroups { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Area> Areas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PortGroup> PortGroups { get; set; }
     }
 }

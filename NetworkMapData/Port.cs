@@ -17,22 +17,23 @@ namespace NetworkMapData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Port()
         {
+            this.PatchCableA = new HashSet<PatchCable>();
+            this.PatchCableB = new HashSet<PatchCable>();
             this.PortGroups = new HashSet<PortGroup>();
             this.VlanTags = new HashSet<VlanTag>();
-            this.Port1 = new HashSet<Port>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Notes { get; set; }
     
-        public virtual PortType PortType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatchCable> PatchCableA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatchCable> PatchCableB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PortGroup> PortGroups { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VlanTag> VlanTags { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Port> Port1 { get; set; }
-        public virtual Port ConnectedPort { get; protected set; }
     }
 }

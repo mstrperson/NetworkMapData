@@ -9,25 +9,37 @@ namespace NetworkMapData
     public partial class Port
     {
         /// <summary>
-        /// Ensures a reflexive relationship between connected ports a and b.
-        /// If, either a or b is already connected to another port, this connection is severed reflexively as well.
-        /// be sure to save changes after modifying ports!
+        /// Checks to see if this port is connected directly to another port with a patch cord.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        public static void ConnectPorts(ref Port a, ref Port b)
+        /// <param name="toPort">other port.</param>
+        /// <returns></returns>
+        public bool IsDirectlyConnected(Port toPort)
         {
-            if (a.ConnectedPort != null)
-            {
-                a.ConnectedPort.ConnectedPort = null;
-            }
-            if (b.ConnectedPort != null)
-            {
-                b.ConnectedPort.ConnectedPort = null;
-            }
+            if (PatchCableA.Count > 0 && PatchCableA.Single().PortBId == toPort.Id)
+                return true;
 
-            a.ConnectedPort = b;
-            b.ConnectedPort = a;
+            if (PatchCableB.Count > 0 && PatchCableB.Single().PortAId == toPort.Id)
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Is this port part of a Switch?
+        /// (This is relevant because a switch port should only ever have a single patch cable attached).
+        /// </summary>
+        public bool IsSwitchPort
+        {
+            get
+            {
+                foreach(PortGroup portGroup in this.PortGroups)
+                {
+                    if (portGroup.Switches.Count > 0)
+                        return true;
+                }
+
+                return false;
+            }
         }
     }
 }

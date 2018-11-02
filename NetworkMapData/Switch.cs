@@ -24,6 +24,7 @@ namespace NetworkMapData
         public int Id { get; set; }
         public string Name { get; set; }
         public string ModelInfo { get; set; }
+        public int ClosetId { get; set; }
     
         public virtual Closet Closet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

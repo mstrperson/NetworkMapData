@@ -28,10 +28,10 @@ namespace NetworkMapData
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Closet> Closets { get; set; }
         public virtual DbSet<Network> Networks { get; set; }
+        public virtual DbSet<PatchCable> PatchCables { get; set; }
         public virtual DbSet<PatchPanel> PatchPanels { get; set; }
         public virtual DbSet<Port> Ports { get; set; }
         public virtual DbSet<PortGroup> PortGroups { get; set; }
-        public virtual DbSet<PortType> PortTypes { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Switch> Switches { get; set; }
         public virtual DbSet<VlanTag> VlanTags { get; set; }

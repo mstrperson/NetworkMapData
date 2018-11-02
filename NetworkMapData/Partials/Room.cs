@@ -26,5 +26,29 @@ namespace NetworkMapData
                 return ports;
             }
         }
+
+        /// <summary>
+        /// Create a new PortGroup for this room with a collection of ports.
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="ports"></param>
+        /// <returns></returns>
+        public PortGroup CreateNetworkDrop(string dropName, ICollection<Port> ports = null)
+        {
+            PortGroup portGroup = new PortGroup()
+            {
+                Name = dropName,
+                Notes = ""
+            };
+
+            foreach(Port p in ports)
+            {
+                portGroup.Ports.Add(p);
+            }
+
+            this.PortGroups.Add(portGroup);
+
+            return portGroup;
+        }
     }
 }

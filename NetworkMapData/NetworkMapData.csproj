@@ -92,9 +92,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NetworkDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Partials\PatchCable.cs" />
+    <Compile Include="Partials\PatchPanel.cs" />
     <Compile Include="Partials\Port.cs" />
     <Compile Include="Partials\Room.cs" />
     <Compile Include="Partials\Switch.cs" />
+    <Compile Include="PatchCable.cs">
+      <DependentUpon>NetworkDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PatchPanel.cs">
       <DependentUpon>NetworkDataModel.tt</DependentUpon>
     </Compile>
@@ -102,9 +107,6 @@
       <DependentUpon>NetworkDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PortGroup.cs">
-      <DependentUpon>NetworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PortType.cs">
       <DependentUpon>NetworkDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

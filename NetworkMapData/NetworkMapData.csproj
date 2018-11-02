@@ -74,6 +74,10 @@
     <Compile Include="Closet.cs">
       <DependentUpon>NetworkDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CSV\ConflictRuleChecker.cs" />
+    <Compile Include="CSV\CSV.cs" />
+    <Compile Include="CSV\ExtendedCSV.cs" />
+    <Compile Include="CSV\NormalizationRule.cs" />
     <Compile Include="Network.cs">
       <DependentUpon>NetworkDataModel.tt</DependentUpon>
     </Compile>

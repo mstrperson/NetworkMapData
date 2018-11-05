@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CSV
+namespace Csv
 {
     public interface IConflictRule
     {

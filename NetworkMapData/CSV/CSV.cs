@@ -9,7 +9,7 @@ using System.Collections;
 /// <summary>
 /// Summary description for CSV
 /// </summary>
-namespace CSV
+namespace Csv
 {
     public class CSV : IEnumerable
     {

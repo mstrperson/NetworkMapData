@@ -98,11 +98,14 @@
     </Compile>
     <Compile Include="Partials\Area.cs" />
     <Compile Include="Partials\Closet.cs" />
+    <Compile Include="Partials\Network.cs" />
     <Compile Include="Partials\PatchCable.cs" />
     <Compile Include="Partials\PatchPanel.cs" />
     <Compile Include="Partials\Port.cs" />
+    <Compile Include="Partials\PortGroup.cs" />
     <Compile Include="Partials\Room.cs" />
     <Compile Include="Partials\Switch.cs" />
+    <Compile Include="Partials\VlanTag.cs" />
     <Compile Include="PatchCable.cs">
       <DependentUpon>NetworkDataModel.tt</DependentUpon>
     </Compile>

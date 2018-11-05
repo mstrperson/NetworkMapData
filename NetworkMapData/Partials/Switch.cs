@@ -38,14 +38,18 @@ namespace NetworkMapData
         {
             PortGroup pg = new PortGroup()
             {
+                Id = PortGroup.NextAvailableId,
                 Name = moduleName,
                 Notes = ""
             };
+
+            int nextPortId = Port.NextAvailableId;
 
             for(int i = 0; i < portCount; i++)
             {
                 Port port = new Port()
                 {
+                    Id = nextPortId++,
                     Name = String.Format("{0}{1}", portPrefix, i + 1),
                     Notes = ""
                 };

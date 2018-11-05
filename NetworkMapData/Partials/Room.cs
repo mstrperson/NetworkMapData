@@ -55,6 +55,7 @@ namespace NetworkMapData
         {
             PortGroup portGroup = new PortGroup()
             {
+                Id = PortGroup.NextAvailableId,
                 Name = dropName,
                 Notes = ""
             };

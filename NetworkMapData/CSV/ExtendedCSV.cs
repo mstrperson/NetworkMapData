@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 
-namespace CSV
+namespace Csv
 {
     /// <summary>
     /// Extention of the CSV class which can be used for various data manipulation.

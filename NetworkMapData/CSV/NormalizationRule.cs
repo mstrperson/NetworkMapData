@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace CSV
+namespace Csv
 {
     public interface INormalizationRule
     {

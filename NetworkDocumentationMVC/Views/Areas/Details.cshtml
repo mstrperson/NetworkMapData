@@ -27,6 +27,19 @@
         </dd>
 
     </dl>
+    <h3>Closets</h3>
+    <table>
+        <tr>
+            <th>Closet</th><th>Description</th><th>Link</th>
+        </tr>
+        @foreach(var closet in Model.Closets)
+        {
+            <tr>
+                <td>@closet.Name</td><td>@closet.Description</td><td>@Html.ActionLink("View Closet", "Details", "Closets", new { id = closet.Id }, null)</td>
+            </tr>
+        }
+    </table>
+    <h3>Rooms</h3>
     <table class="table">
         <tr>
             <th>Room Name</th><th>Description</th><th>Link</th>
@@ -34,7 +47,7 @@
         @foreach(var item in Model.Rooms)
         {
             <tr>
-                <td>@item.Name</td><td>@item.Notes</td><td>@Html.ActionLink("View Room", "Details", "Rooms")</td>
+                <td>@item.Name</td><td>@item.Notes</td><td>@Html.ActionLink("View Room", "Details", "Rooms", new { id=item.Id }, null)</td>
             </tr>
         }
     </table>

@@ -23,10 +23,32 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Closet.Name)
+            @Html.ActionLink(Model.Closet.Name, "Details", "Closets", new { id = Model.ClosetId }, null)
         </dd>
 
     </dl>
+    <hr />
+    <h3>Ports</h3>
+    <table class="table">
+        @foreach (var drop in Model.PortGroups)
+        {
+
+            <tr>
+                <th>@Html.ActionLink(drop.Name, "Details", "Ports", new { id = drop.Id }, null)</th>
+                <th>@drop.Notes</th>
+                <th>"Active"</th>
+            </tr>
+            @foreach (var port in drop.Ports)
+            {
+                <tr>
+                    <!-- TODO:  Make the "Active Label" portion here more visually pleasing.  Replace with an Red/Green bubble to display link state-->
+                    <td>@Html.ActionLink(port.Name, "Details", "Ports", new { id = port.Id }, null)</td>
+                    <td>@port.Notes</td>
+                    <td>@port.ActiveLabel</td>
+                </tr>
+            }
+        }
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

@@ -26,6 +26,77 @@ namespace NetworkMapData
             }
         }
 
+        public bool IsActive
+        {
+            get
+            {
+                if (this.IsSwitchPort) return true;
+                
+                foreach(Port port in this.ConnectedPorts)
+                {
+                    if (port.IsSwitchPort) return true;
+                }
+
+                return false;
+            }
+        }
+
+        public String ActiveLabel => this.IsActive ? "Active" : "Inactive";
+
+        public List<Port> ConnectedPorts
+        {
+            get
+            {
+                List<Port> ports = new List<Port>();
+
+                if(PatchCableA.Count > 0)
+                {
+                    ports.Add(PatchCableA.First().PortB);
+                }
+                if(PatchCableB.Count > 0)
+                {
+                    ports.Add(PatchCableB.First().PortA);
+                }
+
+                List<Port> exc = new List<Port>() { this };
+                exc.AddRange(ports);
+
+                if(PatchCableA.Count > 0)
+                {
+                    ports.AddRange(PatchCableA.First().PortB.GetPortsExcluding(exc));
+                }
+                if(PatchCableB.Count > 0)
+                {
+                    ports.AddRange(PatchCableB.First().PortA.GetPortsExcluding(exc));
+                }
+                return ports;
+            }
+        }
+
+        protected List<Port> GetPortsExcluding(List<Port> excludedPorts)
+        {
+            List<Port> ports = new List<Port>();
+
+            if (PatchCableA.Count > 0 && !excludedPorts.Contains(PatchCableA.First().PortB))
+            {
+                ports.Add(PatchCableA.First().PortB);
+            }
+            if (PatchCableB.Count > 0 && !excludedPorts.Contains(PatchCableB.First().PortA))
+            {
+                ports.Add(PatchCableB.First().PortA);
+            }
+
+            if (PatchCableA.Count > 0 && !excludedPorts.Contains(PatchCableA.First().PortB))
+            {
+                ports.AddRange(PatchCableA.First().PortB.GetPortsExcluding(ports));
+            }
+            if (PatchCableB.Count > 0 && !excludedPorts.Contains(PatchCableB.First().PortA))
+            {
+                ports.AddRange(PatchCableB.First().PortA.GetPortsExcluding(ports));
+            }
+
+            return ports;
+        }
 
         /// <summary>
         /// Checks to see if this port is connected directly to another port with a patch cord.
